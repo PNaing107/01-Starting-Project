@@ -7,7 +7,7 @@ describe('tasks management', () => {
         cy.contains('Add Task').click();
         cy.get('.backdrop').click({force: true});
         // modal should have closed
-        cy.get('.backdrop').should('not.exsist');
+        cy.get('.backdrop').should('not.exist');
         cy.get('.modal').should('not.exist');   
     });
 
@@ -17,7 +17,7 @@ describe('tasks management', () => {
         cy.contains('Add Task').click();
         cy.contains('Cancel').click();
         // modal should have closed
-        cy.get('.backdrop').should('not.exsist');
+        cy.get('.backdrop').should('not.exist');
         cy.get('.modal').should('not.exist'); 
     });
 
@@ -35,7 +35,16 @@ describe('tasks management', () => {
         cy.get('.task p').contains('Some description');
 
         // check the modal is closed after adding a new task
-        cy.get('.backdrop').should('not.exsist');
+        cy.get('.backdrop').should('not.exist');
         cy.get('.modal').should('not.exist');
+    });
+
+    it('should validate user input', () => {
+        cy.visit('http://localhost:5173/');
+        cy.contains('Add Task').click();
+        cy.get('.modal').contains('Add Task').click();
+
+        // check for error message
+        cy.get('.modal').contains('Please provide values');
     })
 })
